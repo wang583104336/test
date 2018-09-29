@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src=media/js/jquery.min.js></script>
+</head>
+<body>
+
+<form action="update.do" id="form">
+
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"show.do",
+			dataType:"json",
+			success:function(data){
+				if (data.code == 1) {
+					var infos = data.msg;
+					var html = "<a>账号</a><input type='text' name='uname' readonly value='" + infos.uname + "'><br>";
+					html += "<a>电话</a><input type='text' name='phone' value='" + infos.phone + "'><br>";
+					html += "<a>身份证号</a><input type='text' name='cardno' value='" + infos.cardno + "'><br>";
+					html += "<a>真实姓名</a><input type='text' name='realname' value='" + infos.realname + "'><br>";
+					html += "<input type='submit' name='submit' value='确认修改'><br>";
+					$("#form").append($(html));
+				}
+			}
+		})
+	})
+</script>
+</form>
+<script type="text/javascript">
+	$("form").submit(function(){
+		$.ajax({
+			type:"post",
+			url:"update.do",
+			data:$("form").serialize(),
+			success:function(data){
+				if(data.code == 1){
+					window.location.href = "main.html";
+				}else{
+					alert(data.msg);
+				}
+			}
+		})
+	})
+
+
+</script>
+
+</body>
+</html>

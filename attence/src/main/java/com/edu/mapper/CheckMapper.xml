@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.ICheckDao">
+  <resultMap id="checkMap" type="Check">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="fcheck" jdbcType="INTEGER" property="fcheck" />
+    <result column="fcreatetime" jdbcType="DATE" property="fcreatetime" />
+    <result column="lcheck" jdbcType="INTEGER" property="lcheck" />
+    <result column="lcreatetime" jdbcType="DATE" property="lcreatetime" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="uname" jdbcType="VARCHAR" property="uname" />
+    
+  </resultMap>
+  
+  <select id="count" resultType="int">
+  	select count(1) from t_check where uid=#{uid}
+  </select>
+  
+  <select id="findByIndexAndSize" parameterType="map" resultMap="checkMap">
+  	select c.*,u.realname uname from t_check c
+  	inner join t_user u
+  	on c.uid=u.id
+  	where u.id=#{id}
+  	order by c.id desc
+  	limit #{index},#{size}
+  </select>
+  
+  <insert id="addF" parameterType="Check">
+  	insert into t_check(uid,fcheck,fcreatetime) value(#{uid},#{fcheck},#{fcreatetime})
+  </insert>
+  
+</mapper>

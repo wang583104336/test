@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.dao.IAuthDao">
+  <resultMap id="authMap" type="Auth">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="aurl" jdbcType="VARCHAR" property="aurl" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  
+  <select id="findAll" resultMap="authMap">
+  	select * from t_auth
+  </select>
+  
+</mapper>
